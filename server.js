@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const bcryptjs = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
 const users = require('./routes/api/users');
