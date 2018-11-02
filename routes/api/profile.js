@@ -11,14 +11,17 @@ const Profile = require('../../models/Profile');
 // load user model
 const User = require('../../models/User');
 
+// load input validation
+const validateProfileInput= require('../../validation/profile');
+
 // @route GET api/profile/profileTest
 // @desc  tests get route
 // @access PUBLIC
 
-router.get('/profileTest', (req, res) => res.json({msg: "profile works"}));
+// router.get('/profileTest', (req, res) => res.json({msg: "profile works"}));
 
 
-// @route GET api/profile/profile
+// @route GET api/profile/
 // @desc  gets curretn users profile
 // @access private
 
@@ -29,6 +32,7 @@ router.get('/', passport.authenticate("jwt", {session: false}), (req, res) => {
     // this 'user' is from the Profile model that links the user to its id
     user: req.user.id
   })
+    .populate('user', ['name', 'avatar'])
     .then(profile => {
       if(!profile) {
         errors.noProfile = "profile not found for this user";
@@ -38,5 +42,72 @@ router.get('/', passport.authenticate("jwt", {session: false}), (req, res) => {
     })
     .catch(err => res.status(404).json(err));
 });
+
+// @route POST api/profile/
+// @desc  create or edit user profile
+// @access private
+
+// this is a protected route
+router.post('/', passport.authenticate("jwt", {session: false}), (req, res) => {
+  const {errors, isValid} = validateProfileInput(req.body);
+
+  // check profile validation
+    if(!isValid) {
+      return res.status(400).json(errors);
+    }
+  // get fields
+  const profileFields = {};
+  // get the logged in user.
+  profileFields.user = req.user.id;
+
+  if(req.body.handle) profileFields.handle = req.body.handle;
+  if(req.body.company) profileFields.company = req.body.company;
+  if(req.body.website) profileFields.website = req.body.website;
+  if(req.body.location) profileFields.location = req.body.location;
+  if(req.body.bio) profileFields.bio = req.body.bio;
+  if(req.body.status) profileFields.status = req.body.status;
+  if(req.body.githubUserName) profileFields.githubUserName = req.body.githubUserName;
+
+// skills = split into an array. split gives us an array of skills to put into database.
+  if(typeof req.body.skills !== 'undefined') {
+    profileFields.skills = req.body.skills.split(',')
+  }
+// social  its' an array. so we need to initialize it.
+  profileFields.social = {};
+
+  if(req.body.youtube) profileFields.social.youtube = req.body.youtube;
+  if(req.body.twitter) profileFields.social.twitter = req.body.twitter;
+  if(req.body.facebook) profileFields.social.facebook = req.body.facebook;
+  if(req.body.instagram) profileFields.social.instagram = req.body.instagram;
+
+  Profile.findOne({user: req.user.id})
+  .then(profile => {
+    if(profile) {
+      // update
+      Profile.findOneAndUpdate(
+        {user: req.user.id},
+        {$set: profileFields},
+        {new: true}
+      )
+      .then(profile => res.json(profile));
+    } else {
+      // create
+
+
+      // check if handle exists
+      Profile.findOne({handle: profileFields.handle})
+        .then(profile => {
+          if(profile) {
+            errors.handle = "that handle already exists.";
+            return res.status(400).json(errors);
+          }
+           // save profile
+           new Profile(profileFields).save()
+            .then(profile => res.json(profile));
+        });
+    }
+  });
+});
+
 
 module.exports = router;

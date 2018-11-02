@@ -20,7 +20,7 @@ const validateLoginInput= require('../../validation/login');
 router.get('/userTest', (req, res) => res.json({msg: "users works"}));
 
 
-// @route GET api/users/register
+// @route POST api/users/register
 // @desc  Register user
 // @access PUBLIC
 
