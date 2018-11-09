@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import classnames from 'classnames';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
+// import { registerUser} from '../../store/actions/auth';
+// import * as actions from '../../store/actions/index';
+
+import { registerUser } from '../../store/actions/auth';
 
 class Register extends Component {
 
@@ -17,6 +23,13 @@ constructor() {
   this.onSubmit = this.onSubmit.bind(this);
 }
 
+
+componentWillReceiveProps(nextProps) {
+  if(nextProps) {
+    this.setState({errors: nextProps.errors});
+  }
+}
+
 onChange = (event) => {
   this.setState({[event.target.name]: event.target.value})
 }
@@ -29,11 +42,14 @@ onSubmit = (event) => {
     email: this.state.email,
     password: this.state.password,
     passwordConfirm: this.state.passwordConfirm,
-  }
-  axios.post('/api/users/register', newUser)
-    .then(res => console.log(res.data))
-    .catch(err => this.setState({errors: err.response.data}))
+  };
+
+  this.props.registerUser(newUser, this.props.history)
 }
+
+
+
+
 
 // const { errors } = this.state; the { } allow you to pull errors out of this.state.  so you don't need to assign it directly => const errors = this.state.errors
   render() {
@@ -102,4 +118,19 @@ onSubmit = (event) => {
   }
 }
 
-export default Register;
+
+// need to look this up again.
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+}
+
+
+const mapStateToProps = state => {
+  return {
+    auth: state.auth,
+    errors: state.errors
+  }
+}
+export default withRouter(connect(mapStateToProps, {registerUser})(Register));
