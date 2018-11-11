@@ -18,9 +18,15 @@ class Login extends Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
+  componentDidMount = () => {
+    // checking to see if we're logged in...
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
   componentWillReceiveProps(nextProps) {
     if(nextProps.auth.isAuthenticated) {
-      this.props.history.push('/dashboard')
+      this.props.history.push('/dashboard');
 
     }
     if(nextProps) {

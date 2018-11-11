@@ -15,7 +15,7 @@ export const registerUser = (userData, history) => dispatch => {
     )
 };
 
-
+//  log in user
 export const loginUser  = userData => dispatch => {
   axios.post('/api/users/login', userData)
     .then(res => {
@@ -39,9 +39,19 @@ export const loginUser  = userData => dispatch => {
     })
 };
 
+// set current user
 export const setCurrentUser = decoded => {
   return {
     type: actionTypes.SET_CURRENT_USER,
     decoded: decoded
   }
+}
+
+// log user out
+export const logoutUser = () => dispatch => {
+  localStorage.removeItem("jwtToken");
+  // remove auth header for future requests
+  setAuthToken(false);
+  // set current user to an empty object {} which will set isAuthenticated to false
+  dispatch(setCurrentUser({}))
 }
