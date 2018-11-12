@@ -23,6 +23,12 @@ constructor() {
   this.onSubmit = this.onSubmit.bind(this);
 }
 
+componentDidMount = () => {
+  // checking to see if we're logged in...
+  if(this.props.auth.isAuthenticated) {
+    this.props.history.push('/dashboard');
+  }
+}
 
 componentWillReceiveProps(nextProps) {
   if(nextProps) {
