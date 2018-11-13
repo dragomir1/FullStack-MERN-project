@@ -7,6 +7,7 @@ import { withRouter } from 'react-router-dom';
 // import * as actions from '../../store/actions/index';
 
 import { registerUser } from '../../store/actions/auth';
+import TextFieldGroup from '../../components/Common/TextInputGroup';
 
 class Register extends Component {
 
@@ -69,51 +70,38 @@ onSubmit = (event) => {
               <h1 className="display-4 text-center">Sign Up</h1>
               <p className="lead text-center">Create your DevConnector account</p>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input type="text"
-                  className={classnames("form-control form-control-lg", {
-                    'is-invalid' : errors.name })}
-                  placeholder="Name"
-                  name="name"
+                <TextFieldGroup
+                  placeholder='Name'
+                  name='name'
                   value={this.state.name}
                   onChange={this.onChange}
-                  />
-                  {errors.name && (<div className="invalid-feedback">{errors.name}</div>) }
-                </div>
-                <div className="form-group">
-                  <input type="email"
-                  className={classnames("form-control form-control-lg", {
-                    'is-invalid' : errors.email })}
-                  placeholder="Email Address"
-                  name="email"
+                  error={errors.name}
+                />
+                <TextFieldGroup
+                  placeholder='Email'
+                  name='email'
                   value={this.state.email}
+                  type='email'
                   onChange={this.onChange}
-                  />
-                  <small className="form-text text-muted">This site uses Gravatar so if you want a profile image, use a Gravatar email</small>
-                  {errors.email && (<div className="invalid-feedback">{errors.email}</div>) }
-                </div>
-                <div className="form-group">
-                  <input type="password"
-                  className={classnames("form-control form-control-lg", {
-                    'is-invalid' : errors.password })}
-                  placeholder="Password"
-                  name="password"
+                  error={errors.email}
+                  info="This site uses Gravatar so if you want a profile image, use a Gravatar email"
+                />
+                <TextFieldGroup
+                  placeholder='Password'
+                  name='password'
+                  type='password'
                   value={this.state.password}
                   onChange={this.onChange}
-                  />
-                  {errors.password && (<div className="invalid-feedback">{errors.password}</div>) }
-                </div>
-                <div className="form-group">
-                  <input type="password"
-                  className={classnames("form-control form-control-lg", {
-                    'is-invalid' : errors.passwordConfirm})}
-                  placeholder="Confirm Password"
-                  name="passwordConfirm"
+                  error={errors.password}
+                />
+                <TextFieldGroup
+                  placeholder='Confirm Password'
+                  name='passwordConfirm'
+                  type='passwordConfirm'
                   value={this.state.passwordConfirm}
                   onChange={this.onChange}
-                  />
-                  {errors.passwordConfirm && (<div className="invalid-feedback">{errors.passwordConfirm}</div>) }
-                </div>
+                  error={errors.passwordConfirm}
+                />
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>

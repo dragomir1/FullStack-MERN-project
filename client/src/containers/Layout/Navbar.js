@@ -26,7 +26,7 @@ logoutUserHandler =(e) => {
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <a href=""
-            onClick={this.logoutUserHandler.bind(this)}
+            onClick={this.logoutUserHandler}
             className="nav-lik"
             > <img
             className="rounded-circle"

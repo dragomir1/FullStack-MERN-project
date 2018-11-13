@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import Navbar from './components/Layout/Navbar';
-import Landing from './components/Layout/Landing';
-import Footer from './components/Layout/Footer';
-import Login from './components/Auth/Login';
-import Register from './components/Auth/Register';
+import Navbar from './containers/Layout/Navbar';
+import Landing from './containers/Layout/Landing';
+import Footer from './components/Footer/Footer';
+import Login from './containers/Auth/Login';
+import Register from './containers/Auth/Register';
 import setAuthToken from './utility/setAuthToken';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import { setCurrentUser} from './store/actions/auth';
 import { logoutUser} from './store/actions/auth';
-
 import store from './store/store';
 import { Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
