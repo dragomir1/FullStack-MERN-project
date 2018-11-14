@@ -16,7 +16,7 @@ export const registerUser = (userData, history) => dispatch => {
 };
 
 //  log in user
-export const loginUser  = userData => dispatch => {
+export const loginUser = userData => dispatch => {
   axios.post('/api/users/login', userData)
     .then(res => {
       // save to local storage

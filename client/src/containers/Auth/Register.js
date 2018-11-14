@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 // import { registerUser} from '../../store/actions/auth';
@@ -11,18 +11,16 @@ import TextFieldGroup from '../../components/Common/TextInputGroup';
 
 class Register extends Component {
 
-constructor() {
-  super();
-  this.state = {
+  state = {
       name: '',
       email: '',
       password: '',
       passwordConfirm: '',
       errors: {}
   }
-  this.onChange = this.onChange.bind(this);
-  this.onSubmit = this.onSubmit.bind(this);
-}
+//   this.onChange = this.onChange.bind(this);
+//   this.onSubmit = this.onSubmit.bind(this);
+// }
 
 componentDidMount = () => {
   // checking to see if we're logged in...
