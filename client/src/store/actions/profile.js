@@ -36,3 +36,35 @@ export const clearProfileLoading = () => {
     type: actionTypes.CLEAR_CURRENT_PROFILE,
   };
 };
+// create profile
+// we need to use history to redirect and use WithRoter..so we would pass in this.props.history.once we create the profile we want to redirect.
+export const createProfile = (userData, history) => dispatch => {
+  axios.post('/api/profile', userData)
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispatch({
+        type: actionTypes.GET_ERRORS,
+        userData: err.response.data
+      })
+    );
+}
+
+// delete Account
+export const deleteAccount = () => dispatch => {
+  if(window.confirm("this can not be undone")) {
+    axios
+      .delete('/api/profile')
+      .then(res => {
+        dispatch({
+          type: actionTypes.SET_CURRENT_USER,
+          userData: {}
+        })
+      })
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERRORS,
+          userData: err.response.data
+        })
+      );
+  }
+};

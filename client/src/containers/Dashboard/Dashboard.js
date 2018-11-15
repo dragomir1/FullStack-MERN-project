@@ -4,14 +4,19 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 // import { withRouter } from 'react-router-dom';
-import { getCurrentProfile } from '../../store/actions/profile';
+import { getCurrentProfile, deleteAccount } from '../../store/actions/profile';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import ProfileActions from '../../components/Dashboard/ProfileActions';
 
 
 class Dashboard extends Component {
 
   componentDidMount() {
     this.props.getCurrentProfile();
+  }
+
+  onDeleteClickHandler =() => {
+    this.props.deleteAccount();
   }
 
 // need to make sure the profile doesnt render if user in null
@@ -27,7 +32,19 @@ class Dashboard extends Component {
       // check if logged in user has profile data.
       // the way to check for an empty object
       if (Object.keys(profile).length > 0 ) {
-        dashboardContents = <h4>TODO: display profile</h4>
+        dashboardContents = (
+          <div>
+            <p className='lead text-muted'>Welcome <Link to={`/profile/${profile.handle}`}>{user.name}
+            </Link>
+          </p>
+          <ProfileActions />
+          <div style={{marginBottom: '60px'}} />
+          <botton
+            onClick={this.onDeleteClickHandler}
+            className='btn btn-danger'>Delete My Account
+          </botton>
+        </div>
+        )
       } else {
         // user is logged in but no profile dashboardContents
         dashboardContents = (
@@ -58,6 +75,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
@@ -70,4 +88,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {getCurrentProfile})(Dashboard);
+export default connect(mapStateToProps, {getCurrentProfile, deleteAccount})(Dashboard);
