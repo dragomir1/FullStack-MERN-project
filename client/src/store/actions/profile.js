@@ -51,15 +51,15 @@ export const createProfile = (userData, history) => dispatch => {
 
 // delete Account
 export const deleteAccount = () => dispatch => {
-  if(window.confirm("this can not be undone")) {
+  if(window.confirm("This can not be undone!")) {
     axios
       .delete('/api/profile')
-      .then(res => {
+      .then(res =>
         dispatch({
           type: actionTypes.SET_CURRENT_USER,
           userData: {}
         })
-      })
+      )
       .catch(err =>
         dispatch({
           type: actionTypes.GET_ERRORS,
