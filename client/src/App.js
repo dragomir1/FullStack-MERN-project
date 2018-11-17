@@ -5,6 +5,7 @@ import Footer from './components/Footer/Footer';
 import Login from './containers/Auth/Login';
 import Register from './containers/Auth/Register';
 import Dashboard from './containers/Dashboard/Dashboard';
+import EditProfile from './containers/EditProfile/EditProfile';
 import CreateProfile from './containers/CreateProfile/CreateProfile';
 import setAuthToken from './utility/setAuthToken';
 import { Provider } from 'react-redux';
@@ -57,6 +58,9 @@ class App extends Component {
                 </Switch>
                 <Switch>
                   <PrivateRoute exact path="/create-profile" component={CreateProfile} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/edit-profile" component={EditProfile} />
                 </Switch>
               </div>
               <Footer />

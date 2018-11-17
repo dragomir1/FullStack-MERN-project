@@ -39,10 +39,10 @@ class Dashboard extends Component {
           </p>
           <ProfileActions />
           <div style={{marginBottom: '60px'}} />
-          <botton
+          <button
             onClick={this.onDeleteClickHandler}
             className='btn btn-danger'>Delete My Account
-          </botton>
+          </button>
         </div>
         )
       } else {
@@ -84,7 +84,8 @@ Dashboard.propTypes = {
 const mapStateToProps = state => {
   return {
     profile: state.profile,
-    auth: state.auth
+    auth: state.auth,
+    errors: state.errors
   }
 }
 

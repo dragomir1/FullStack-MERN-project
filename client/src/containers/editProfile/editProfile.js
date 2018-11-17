@@ -6,7 +6,12 @@ import TextFieldGroup from '../../components/Common/TextInputGroup';
 import InputGroup from '../../components/Common/InputGroup';
 import SelectListGroup from '../../components/Common/SelectListGroup';
 import TextAreaFieldGroup from '../../components/Common/TextAreaFieldGroup';
-import { createProfile } from '../../store/actions/profile';
+import { createProfile, getCurrentProfile } from '../../store/actions/profile';
+import isEmpty from '../../validation/isEmpty';
+
+
+
+// the route "/api/profile is both used to creat and to update. so we'll use the same action."
 
 class CreateProfile extends Component {
 
@@ -23,7 +28,7 @@ class CreateProfile extends Component {
     twitter: '',
     facebook: '',
     linkedin: '',
-    youTube: '',
+    youtube: '',
     instagram: '',
     errors: {}
   }
@@ -43,8 +48,9 @@ class CreateProfile extends Component {
       twitter: this.state.twitter,
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
-      youTube: this.state.youTube,
+      youtube: this.state.youtube,
       instagram: this.state.instagram,
+      errors: {}
     }
 
     this.props.createProfile(profileData, this.props.history)
@@ -54,9 +60,49 @@ class CreateProfile extends Component {
     this.setState({ [e.target.name]: e.target.value});
   }
 
+// this runs as soon as the component mounts.
+  componentDidMount() {
+    this.props.getCurrentProfile();
+  }
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
       this.setState({errors: nextProps.errors});
+    }
+// nextProps.profile.profile =>the first part is the actual state.  the last part is the profile object.
+    if(nextProps.profile.profile) {
+      const profile = nextProps.profile.profile;
+      const skillsCSV = profile.skills.join(',');
+
+      profile.company = !isEmpty(profile.company) ? profile.company : '';
+      profile.website = !isEmpty(profile.website) ? profile.website : '';
+      profile.location = !isEmpty(profile.location) ? profile.location : '';
+      profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
+      profile.githubusername = !isEmpty(profile.githubusername) ? profile.githubusername : '';
+      // profile.social : {} => is an object so we want it to be empty
+      profile.social = !isEmpty(profile.social) ? profile.social : {}
+      profile.facebook = !isEmpty(profile.social.facebook) ? profile.social.facebook : '';
+      profile.twitter = !isEmpty(profile.social.twitter) ? profile.social.twitter : '';
+      profile.youtube = !isEmpty(profile.social.youtube) ? profile.social.youtube : '';
+      profile.instagram = !isEmpty(profile.social.instagram) ? profile.social.instagram : '';
+      profile.linkedin = !isEmpty(profile.social.linkedin) ? profile.social.linkedin : '';
+
+      // set component field this.state.
+      this.setState({
+        handle: profile.handle,
+        company: profile.company,
+        website: profile.website,
+        location: profile.location,
+        status: profile.status,
+        skills: skillsCSV,
+        githubusername: profile.githubusername,
+        bio: profile.bio,
+        twitter: profile.twitter,
+        facebook: profile.facebook,
+        linkedin: profile.linkedin,
+        youtube: profile.youtube,
+        instagram: profile.instagram,
+      });
     }
   }
 
@@ -70,7 +116,7 @@ render() {
     socialInputs = (
         <div>
           <InputGroup
-            placeholder="Twitter URL"
+            placeholder="Twitter Profile URL"
             name="twitter"
             icon="fab fa-twitter"
             value={this.state.twitter}
@@ -78,7 +124,7 @@ render() {
             error={errors.twitter} />
 
           <InputGroup
-            placeholder="Facebook URL"
+            placeholder="Facebook Page URL"
             name="facebook"
             icon="fab fa-facebook"
             value={this.state.facebook}
@@ -86,7 +132,7 @@ render() {
             error={errors.facebook} />
 
           <InputGroup
-            placeholder="Linkedin URL"
+            placeholder="Linkedin Profile URL"
             name="linkedin"
             icon="fab fa-linkedin"
             value={this.state.linkedin}
@@ -94,15 +140,15 @@ render() {
             error={errors.linkedin} />
 
           <InputGroup
-            placeholder="YouTube URL"
-            name="youTube"
+            placeholder="YouTube Channel URL"
+            name="youtube"
             icon="fab fa-youTube"
-            value={this.state.youTube}
+            value={this.state.youtube}
             onChange={this.onChange}
-            error={errors.youTube} />
+            error={errors.youtube} />
 
           <InputGroup
-            placeholder="Instagram URL"
+            placeholder="Instagram Page URL"
             name="instagram"
             icon="fab fa-instagram"
             value={this.state.instagram}
@@ -133,8 +179,7 @@ render() {
       <div className="container">
         <div className="row">
           <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Create Your Profile</h1>
-              <p className="lead text-center">Let's get some information to make your profile stand out</p>
+              <h1 className="display-4 text-center">Edit Your Profile</h1>
               <small className="d-block pb-3">* = required field</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
@@ -228,6 +273,8 @@ render() {
 
 
 CreateProfile.propTypes = {
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 
@@ -240,4 +287,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps, {createProfile})(withRouter(CreateProfile));
+export default connect(mapStateToProps, {createProfile, getCurrentProfile})(withRouter(CreateProfile));
