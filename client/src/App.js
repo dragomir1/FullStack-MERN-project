@@ -8,6 +8,7 @@ import Dashboard from './containers/Dashboard/Dashboard';
 import EditProfile from './containers/EditProfile/EditProfile';
 import CreateProfile from './containers/CreateProfile/CreateProfile';
 import AddExperience from './containers/Credentials/AddExperience';
+import AddEducation from './containers/Credentials/AddEducation';
 import setAuthToken from './utility/setAuthToken';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
@@ -65,6 +66,9 @@ class App extends Component {
                 </Switch>
                 <Switch>
                   <PrivateRoute exact path="/add-experience" component={AddExperience} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/add-education" component={AddEducation} />
                 </Switch>
               </div>
               <Footer />
