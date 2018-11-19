@@ -58,7 +58,7 @@ class AddEducation extends Component {
     const { errors } = this.state;
 
     const options = [
-      {label: "Your degree", value: 0},
+      {label: "Degree level", value: 0},
       {label: "GED", value: "GED"},
       {label: "Bachelors", value: "Bachelors"},
       {label: "Masters", value: "Masters"},
@@ -80,14 +80,14 @@ class AddEducation extends Component {
               <small className='d-block pb-3'> *= required fields</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
-                  placeholder="school"
+                  placeholder="* School"
                   name="school"
                   value={this.state.school}
                   onChange={this.onChange}
                   error={errors.school}
                   />
                 <SelectListGroup
-                    placeholder="degree"
+                    placeholder="* Degree"
                     name="degree"
                     value={this.state.degree}
                     onChange={this.onChange}
@@ -96,7 +96,7 @@ class AddEducation extends Component {
                     info="your degree"
                   />
                 <TextFieldGroup
-                  placeholder="field of study"
+                  placeholder="* Field of study"
                   name="fieldOfStudy"
                   value={this.state.fieldOfStudy}
                   onChange={this.onChange}

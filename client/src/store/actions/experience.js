@@ -13,3 +13,21 @@ export const addExperience = (userData, history) => dispatch => {
       })
     );
 }
+
+
+export const deleteExperience = (id) => dispatch => {
+    axios
+      .delete(`/api/profile/experience/${id}`)
+      .then(res =>
+        dispatch({
+          type: actionTypes.GET_PROFILE,
+          userData: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERRORS,
+          userData: err.response.data
+        })
+      );
+  };
