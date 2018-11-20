@@ -13,3 +13,20 @@ export const addEducation = (userData, history) => dispatch => {
       })
     );
 }
+
+export const deleteEducation = (id) => dispatch => {
+    axios
+      .delete(`/api/profile/education/${id}`)
+      .then(res =>
+        dispatch({
+          type: actionTypes.GET_PROFILE,
+          userData: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERRORS,
+          userData: err.response.data
+        })
+      );
+  };

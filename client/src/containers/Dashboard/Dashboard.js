@@ -8,6 +8,7 @@ import { getCurrentProfile, deleteAccount } from '../../store/actions/profile';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import ProfileActions from '../../components/Dashboard/ProfileActions';
 import Experience from './Experience/Experience';
+import Education from './Education/Education';
 
 
 class Dashboard extends Component {
@@ -42,6 +43,9 @@ class Dashboard extends Component {
           <Experience
             experience={profile.experience}
             />
+          <Education
+              education={profile.education}
+              />
           <div style={{marginBottom: '60px'}} />
           <button
             onClick={this.onDeleteClickHandler}
