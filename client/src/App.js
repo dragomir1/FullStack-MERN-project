@@ -5,11 +5,13 @@ import Footer from './components/Footer/Footer';
 import Login from './containers/Auth/Login';
 import Register from './containers/Auth/Register';
 import Dashboard from './containers/Dashboard/Dashboard';
+import Profiles from './containers/Profiles/Profiles';
 import EditProfile from './containers/EditProfile/EditProfile';
 import CreateProfile from './containers/CreateProfile/CreateProfile';
 import AddExperience from './containers/Credentials/AddExperience';
 import AddEducation from './containers/Credentials/AddEducation';
 import setAuthToken from './utility/setAuthToken';
+
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 import PrivateRoute from './components/Common/PrivateRoute';
@@ -55,6 +57,7 @@ class App extends Component {
               <div className="container">
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
+                <Route exact path="/profiles" component={Profiles} />
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 </Switch>

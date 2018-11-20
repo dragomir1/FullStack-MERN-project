@@ -22,6 +22,12 @@ const reducer = (state = initialState, action) => {
         profile: action.userData,
         loading: false
       }
+    case actionTypes.GET_PROFILES:
+      return {
+        ...state,
+        profiles: action.userData,
+        loading: false
+      }
     case actionTypes.CLEAR_CURRENT_PROFILE:
     return {
       ...state,
