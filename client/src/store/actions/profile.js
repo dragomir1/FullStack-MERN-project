@@ -22,6 +22,26 @@ export const getCurrentProfile = () => dispatch => {
   );
 };
 
+// get profile by handle
+export const getProfileByHandle = (handle) => dispatch => {
+  dispatch(setProfileLoading());
+  axios.get(`/api/profile/handle/${handle}`)
+  .then(res =>
+    dispatch({
+      type: actionTypes.GET_PROFILE,
+      userData: res.data
+    })
+  )
+  .catch(err =>
+    dispatch({
+      type: actionTypes.GET_PROFILE,
+      // the reason its epmty is becuase you can create an account with no profile..so if the user didn't fill one out, then an empty object is returned.  there needs to be a button that will take them to fill a profile.  this shouldnt be an error.
+      userData: null
+    })
+  );
+};
+
+
 
 // profile loading
 export const setProfileLoading = () => {
