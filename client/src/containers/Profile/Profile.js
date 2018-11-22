@@ -34,10 +34,15 @@ class Profile extends Component {
             </div>
               <div className='col-md-6' />
           </div>
-          <ProfileHeader />
-          <ProfileAbout />
-          <ProfileCreds />
-          <ProfileGithub />
+          <ProfileHeader profile={profile} />
+          <ProfileAbout profile={profile}/>
+          <ProfileCreds
+            profile={profile}
+            education={profile.education}
+            experience={profile.experience} />
+
+
+            {profile.githubUserName ? <ProfileGithub username={profile.githubUserName}/> : "no git hub user name"}
         </div>
       );
     }

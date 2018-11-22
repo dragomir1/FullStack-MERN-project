@@ -52,8 +52,8 @@ Profiles.propTypes = {
   getProfiles: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
-
 }
+
 const mapStateToProps = state => {
   return {
     profile: state.profile,
