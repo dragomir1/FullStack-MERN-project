@@ -94,8 +94,8 @@ onSubmit = (event) => {
                 />
                 <TextFieldGroup
                   placeholder='Confirm Password'
-                  name='passwordConfirm'
-                  type='passwordConfirm'
+                  name='password'
+                  type='password'
                   value={this.state.passwordConfirm}
                   onChange={this.onChange}
                   error={errors.passwordConfirm}

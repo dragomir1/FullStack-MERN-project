@@ -18,12 +18,12 @@ class CreateProfile extends Component {
     location: '',
     status: '',
     skills: '',
-    githubusername: '',
+    githubUserName: '',
     bio: '',
     twitter: '',
     facebook: '',
     linkedin: '',
-    youTube: '',
+    youtube: '',
     instagram: '',
     errors: {}
   }
@@ -38,12 +38,12 @@ class CreateProfile extends Component {
       location: this.state.location,
       status: this.state.status,
       skills: this.state.skills,
-      githubusername: this.state.githubusername,
+      githubUserName: this.state.githubUserName,
       bio: this.state.bio,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
       linkedin: this.state.linkedin,
-      youTube: this.state.youTube,
+      youtube: this.state.youtube,
       instagram: this.state.instagram,
     }
 
@@ -95,11 +95,11 @@ render() {
 
           <InputGroup
             placeholder="YouTube URL"
-            name="youTube"
-            icon="fab fa-youTube"
-            value={this.state.youTube}
+            name="youtube"
+            icon="fab fa-youtube"
+            value={this.state.youtube}
             onChange={this.onChange}
-            error={errors.youTube} />
+            error={errors.youtube} />
 
           <InputGroup
             placeholder="Instagram URL"
@@ -188,10 +188,10 @@ render() {
                 />
                 <TextFieldGroup
                   placeholder="Github handle"
-                  name="githubusername"
-                  value={this.state.githubusername}
+                  name="githubUserName"
+                  value={this.state.githubUserName}
                   onChange={this.onChange}
-                  error={errors.githubusername}
+                  error={errors.githubUserName}
                   info="Your Github handle - include link if you want"
                 />
               <TextAreaFieldGroup

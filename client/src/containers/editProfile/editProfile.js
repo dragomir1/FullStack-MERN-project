@@ -23,7 +23,7 @@ class CreateProfile extends Component {
     location: '',
     status: '',
     skills: '',
-    githubusername: '',
+    githubUserName: '',
     bio: '',
     twitter: '',
     facebook: '',
@@ -43,7 +43,7 @@ class CreateProfile extends Component {
       location: this.state.location,
       status: this.state.status,
       skills: this.state.skills,
-      githubusername: this.state.githubusername,
+      githubUserName: this.state.githubUserName,
       bio: this.state.bio,
       twitter: this.state.twitter,
       facebook: this.state.facebook,
@@ -78,7 +78,7 @@ class CreateProfile extends Component {
       profile.website = !isEmpty(profile.website) ? profile.website : '';
       profile.location = !isEmpty(profile.location) ? profile.location : '';
       profile.bio = !isEmpty(profile.bio) ? profile.bio : '';
-      profile.githubusername = !isEmpty(profile.githubusername) ? profile.githubusername : '';
+      profile.githubUserName = !isEmpty(profile.githubUserName) ? profile.githubUserName : '';
       // profile.social : {} => is an object so we want it to be empty
       profile.social = !isEmpty(profile.social) ? profile.social : {}
       profile.facebook = !isEmpty(profile.social.facebook) ? profile.social.facebook : '';
@@ -95,7 +95,7 @@ class CreateProfile extends Component {
         location: profile.location,
         status: profile.status,
         skills: skillsCSV,
-        githubusername: profile.githubusername,
+        githubUserName: profile.githubUserName,
         bio: profile.bio,
         twitter: profile.twitter,
         facebook: profile.facebook,
@@ -233,10 +233,10 @@ render() {
                 />
                 <TextFieldGroup
                   placeholder="Github handle"
-                  name="githubusername"
-                  value={this.state.githubusername}
+                  name="githubUserName"
+                  value={this.state.githubUserName}
                   onChange={this.onChange}
-                  error={errors.githubusername}
+                  error={errors.githubUserName}
                   info="Your Github handle - include link if you want"
                 />
               <TextAreaFieldGroup
