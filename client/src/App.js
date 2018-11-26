@@ -55,12 +55,14 @@ class App extends Component {
         <BrowserRouter>
           <div className="App">
               <Navbar />
+
               <Route exact path="/" component={Landing} />
               <div className="container">
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/profiles" component={Profiles} />
                 <Route exact path="/profile/:handle" component={Profile} />
+
 
                 <Switch>
                   <PrivateRoute exact path="/dashboard" component={Dashboard} />
