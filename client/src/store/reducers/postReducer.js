@@ -8,6 +8,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.DELETE_POST:
+    return {
+      ...state,
+      posts: state.posts.filter(post => post._id !== action.userData)
+    };
     case actionTypes.POST_LOADING:
     return {
       ...state,

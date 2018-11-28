@@ -3,10 +3,28 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from "classnames";
 import { Link } from 'react-router-dom';
+import { deletePost, likePost, unlikePost } from '../../store/actions/post';
 
 class PostItem extends Component {
 
   onDeleteClickHandler = (id) => {
+    this.props.deletePost(id);
+  }
+
+  likePostHandler = (id) => {
+    this.props.likePost(id);
+  }
+
+  unlikePostHandler = (id) => {
+    this.props.unlikePost(id);
+  }
+  findUserLike(likes){
+    const { auth } = this.props;
+    if(likes.filter(like => like.user === auth.user.id).length > 0) {
+      return true;
+    } else {
+      return false;
+    }
 
   }
 
@@ -30,11 +48,20 @@ class PostItem extends Component {
             <p className="lead">
             {post.text}
             </p>
-            <button type="button" className="btn btn-light mr-1">
-              <i className="text-info fas fa-thumbs-up"></i>
+            <button
+              type="button"
+              className="btn btn-light mr-1"
+              onClick={this.likePostHandler.bind(this, post._id)}>
+              <i className={classnames('fas fa-thumbs-up', {
+                'text-info': this.findUserLike(post.likes)
+              })}
+              />
               <span className="badge badge-light">{post.likes.length}</span>
             </button>
-            <button type="button" className="btn btn-light mr-1">
+            <button
+              type="button"
+              className="btn btn-light mr-1"
+              onClick={this.unlikePostHandler.bind(this, post._id)}>
               <i className="text-secondary fas fa-thumbs-down"></i>
             </button>
             <Link to={`/post/${post._id}`} className="btn btn-info mr-1">
@@ -42,9 +69,9 @@ class PostItem extends Component {
             </Link>
             {post.user === auth.user.id ? (
               <button
-                onClick={this.onDeleteClickHandler(post._id)}
+                onClick={this.onDeleteClickHandler.bind(this, post._id)}
                 type='button'
-                className='btnbtn-danger mr-1'
+                className='btn btn-danger mr-1'
                 >
                   <i className='fas fa-times' />
               </button>
@@ -59,6 +86,9 @@ class PostItem extends Component {
 
 
 PostItem.propTypes = {
+  deletePost: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  unlikePost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired
 }
@@ -69,4 +99,4 @@ const mapStateToProps = state => {
     auth: state.auth
   };
 }
-export default connect(mapStateToProps, {})(PostItem);
+export default connect(mapStateToProps, {deletePost, likePost, unlikePost})(PostItem);

@@ -13,11 +13,10 @@ export const addPost = userData => dispatch => {
       })
     )
     .catch(err =>
-      console.log(err)
-      // dispatch({
-      //   type: actionTypes.GET_ERRORS,
-      //   userData: err.response.data
-      // })
+      dispatch({
+        type: actionTypes.GET_ERRORS,
+        userData: err.response.data
+      })
     );
 };
 
@@ -41,6 +40,52 @@ export const getPosts = () => dispatch => {
       })
     );
 };
+
+// delete a post
+export const deletePost = id => dispatch => {
+    axios
+      .delete(`/api/posts/${id}`)
+      .then(res =>
+        dispatch({
+          type: actionTypes.DELETE_POST,
+          userData: id
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERRORS,
+          userData: err.response.data
+        })
+      );
+};
+
+// like a post
+
+export const likePost = id => dispatch => {
+  axios
+    .post(`/api/posts/like/${id}`)
+    .then(res => dispatch(getPosts()))
+    .catch(err =>
+      dispatch({
+        type: actionTypes.GET_ERRORS,
+        userData: err.response.data
+      })
+    );
+};
+
+// unlike a post
+export const unlikePost = id => dispatch => {
+  axios
+    .post(`/api/posts/unlike/${id}`)
+    .then(res => dispatch(getPosts()))
+    .catch(err =>
+      dispatch({
+        type: actionTypes.GET_ERRORS,
+        userData: err.response.data
+      })
+    );
+};
+
 
 
 // post loading

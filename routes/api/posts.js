@@ -21,7 +21,7 @@ const validatePostInput= require('../../validation/post');
 
 
 
-// @route GET api/posts/allposts
+// @route GET api/posts/
 // @desc  creating a post
 // @access Poblic
 
