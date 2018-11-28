@@ -25,7 +25,7 @@ const validatePostInput= require('../../validation/post');
 // @desc  creating a post
 // @access Poblic
 
-router.get('/allposts', (req, res) => {
+router.get('/', (req, res) => {
     const errors = {};
     Post.find()
     .sort({date: -1})

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import isEmpty from '../../validation/isEmpty';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 class ProfileGithub extends Component {
   constructor(props){
@@ -39,9 +39,9 @@ class ProfileGithub extends Component {
         <div className='row'>
           <div className='col-md-6'>
             <h4>
-              <Link to={repoItem.html_url} className='text-info' target='_blank'>
+              <a href={repoItem.html_url} className='text-info' rel="noopener noreferrer" target='_blank'>
                 {repoItem.name}
-              </Link>
+              </a>
             </h4>
               <p>{repoItem.description}</p>
           </div>

@@ -4,7 +4,8 @@ import * as actionTypes from './actionTypes';
 
 // add Post
 export const addPost = userData => dispatch => {
-  axios.post('/api/posts', userData)
+  axios
+    .post('/api/posts', userData)
     .then(res =>
       dispatch({
         type: actionTypes.ADD_POST,
@@ -12,18 +13,20 @@ export const addPost = userData => dispatch => {
       })
     )
     .catch(err =>
-      dispatch({
-        type: actionTypes.GET_ERRORS,
-        userData: err.response.data
-      })
+      console.log(err)
+      // dispatch({
+      //   type: actionTypes.GET_ERRORS,
+      //   userData: err.response.data
+      // })
     );
-}
+};
 
 
 // get Posts
 export const getPosts = () => dispatch => {
   dispatch(setPostLoading());
-  axios.get('/api/posts')
+  axios
+    .get('/api/posts')
     .then(res =>
       dispatch({
         type: actionTypes.GET_POSTS,
@@ -38,6 +41,7 @@ export const getPosts = () => dispatch => {
       })
     );
 };
+
 
 // post loading
 export const setPostLoading = () => {

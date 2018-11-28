@@ -4,17 +4,27 @@ import PropTypes from 'prop-types';
 import TextAreaFieldGroup from '../../components/Common/TextAreaFieldGroup';
 import { addPost } from '../../store/actions/post';
 
-
-
 class PostForm extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      text: '',
+      errors: {}
+    }
 
-  state = {
-    text: '',
-    errors: {}
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
 
-  onSubmit = (e) => {
+    componentWillReceiveProps(newProps) {
+      if(newProps.errors) {
+        this.setState({errors: newProps.errors});
+      }
+    }
+
+
+  onSubmit(e){
     e.preventDefault();
 
     const { user } = this.props.auth
@@ -31,15 +41,10 @@ class PostForm extends Component {
 
   }
 
-  onChange = (e) => {
+  onChange(e){
     this.setState({ [e.target.name]: e.target.value});
   }
 
-  componentWillReceiveProps(newProps) {
-    if(newProps.errors) {
-      this.setState({errors: newProps.errors});
-    }
-  }
 
 
 
@@ -79,12 +84,9 @@ PostForm.propTypes = {
   auth: PropTypes.object.isRequired
 }
 
-const mapStateToProps = state => {
-  return {
-    profile: state.profile,
+const mapStateToProps = state => ({
     auth: state.auth,
     errors: state.errors
-  }
-}
+})
 
 export default connect(mapStateToProps, {addPost})(PostForm);
