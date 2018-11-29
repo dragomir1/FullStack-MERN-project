@@ -96,8 +96,8 @@ render() {
           <InputGroup
             placeholder="YouTube URL"
             name="youtube"
-            icon="fab fa-youtube"
             value={this.state.youtube}
+            icon="fab fa-youtube"
             onChange={this.onChange}
             error={errors.youtube} />
 
@@ -115,7 +115,7 @@ render() {
 
   // select options for status
   const options = [
-    {label: "Your professional status", value: 0},
+    {label: "*Your professional status", value: 0},
     {label: "Developer", value: "Developer"},
     {label: "Junior Developer", value: "Junior Developer"},
     {label: "Senior Developer", value: "Senior Developer"},
@@ -138,7 +138,7 @@ render() {
               <small className="d-block pb-3">* = required field</small>
               <form onSubmit={this.onSubmit}>
                 <TextFieldGroup
-                  placeholder="Profile Handle"
+                  placeholder="*Profile Handle"
                   name="handle"
                   value={this.state.handle}
                   onChange={this.onChange}
@@ -179,7 +179,7 @@ render() {
                   info="Your location...."
                 />
                 <TextFieldGroup
-                  placeholder="skills"
+                  placeholder="*skills"
                   name="skills"
                   value={this.state.skills}
                   onChange={this.onChange}
