@@ -38,10 +38,10 @@ logoutUserHandler =(e) => {
             className="nav-lik"
             > <img
             className="rounded-circle"
-            src="{user.avatar}"
+            src={user.avatar}
             alt={user.name}
             style={{width: '25px', marginRight: '5px'}}
-            title="You must have an avatr to your email to display an image"/ >{' '} Logout
+            title="You must have an Gravatar to your email to display an image"/ >{' '} Logout
           </a>
         </li>
       </ul>

@@ -8,12 +8,14 @@ import Register from './containers/Auth/Register';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Profiles from './containers/Profiles/Profiles';
 import Posts from './containers/Posts/Posts';
+import Post from './containers/Post/Post';
 import Profile from './containers/Profile/Profile';
 import EditProfile from './containers/EditProfile/EditProfile';
 import CreateProfile from './containers/CreateProfile/CreateProfile';
 import AddExperience from './containers/Credentials/AddExperience';
 import AddEducation from './containers/Credentials/AddEducation';
 import setAuthToken from './utility/setAuthToken';
+
 
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
@@ -82,6 +84,9 @@ class App extends Component {
                 </Switch>
                 <Switch>
                   <PrivateRoute exact path="/feed" component={Posts} />
+                </Switch>
+                <Switch>
+                  <PrivateRoute exact path="/post/:id" component={Post} />
                 </Switch>
                 <Route exact path="/not-found" component={NotFound} />
               </div>

@@ -29,6 +29,12 @@ const reducer = (state = initialState, action) => {
       posts: action.userData,
       loading: false
     };
+    case actionTypes.GET_POST:
+    return {
+      ...state,
+      post: action.userData,
+      loading: false
+    };
     default:
       return state;
   }

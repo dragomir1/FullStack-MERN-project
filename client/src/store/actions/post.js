@@ -4,6 +4,7 @@ import * as actionTypes from './actionTypes';
 
 // add Post
 export const addPost = userData => dispatch => {
+  dispatch(clearErrors());
   axios
     .post('/api/posts', userData)
     .then(res =>
@@ -36,6 +37,26 @@ export const getPosts = () => dispatch => {
     .catch(err =>
       dispatch({
         type: actionTypes.GET_POSTS,
+        userData: null
+      })
+    );
+};
+
+// get Post
+export const getPost = id => dispatch => {
+  dispatch(setPostLoading());
+  axios
+    .get(`/api/posts/${id}`)
+    .then(res =>
+      dispatch({
+        type: actionTypes.GET_POST,
+        userData: res.data
+
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: actionTypes.GET_POST,
         userData: null
       })
     );
@@ -86,7 +107,50 @@ export const unlikePost = id => dispatch => {
     );
 };
 
+// add comment
+export const addComment = (postId, commentData) => dispatch => {
+  dispatch(clearErrors());
+  axios
+    .post(`/api/posts/comment/${postId}`, commentData)
+    .then(res =>
+      dispatch({
+        type: actionTypes.GET_POST,
+        userData: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: actionTypes.GET_ERRORS,
+        userData: err.response.data
+      })
+    );
+};
 
+
+// delete comment
+export const deleteComment = (postId, commentId) => dispatch => {
+  axios
+    .delete(`/api/posts/comment/${postId}/${commentId}`, commentId)
+    .then(res =>
+      dispatch({
+        type: actionTypes.GET_POST,
+        userData: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: actionTypes.GET_ERRORS,
+        userData: err.response.data
+      })
+    );
+};
+
+// clear errors
+export const clearErrors = () => {
+  return {
+    type: actionTypes.CLEAR_ERRORS,
+  };
+};
 
 // post loading
 export const setPostLoading = () => {
